@@ -1,7 +1,9 @@
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import userRoutes from "./routes/user.routes.js";
 dotenv.config();
+
 
 async function run() {
   const clientOptions = {
@@ -24,6 +26,8 @@ run().catch(console.dir);
 
 const app = express();
 
-app.listen(3000, () => {
-  console.log("server listening on port 3000");
+app.listen(5000, () => {
+  console.log("server listening on port 5000");
 });
+
+app.use("/api/user", userRoutes);
