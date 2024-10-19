@@ -2,6 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import userRoutes from "./routes/user.routes.js";
+import authRoutes from "./routes/auth.routes.js";
 dotenv.config();
 
 
@@ -17,17 +18,20 @@ async function run() {
     console.log(
       "Pinged your deployment. You successfully connected to MongoDB!"
     );
-  } finally {
-    // Ensures that the client will close when you finish/error
-    await mongoose.disconnect();
+  } catch(error)
+  {
+    res.status(500).json(error.message);
   }
 }
 run().catch(console.dir);
 
 const app = express();
+app.use(express.json());
+const port = 6000;
 
-app.listen(5000, () => {
-  console.log("server listening on port 5000");
+app.listen(port, () => {
+  console.log("server listening on port ", port);
 });
 
 app.use("/api/user", userRoutes);
+app.use("/api/auth", authRoutes);
