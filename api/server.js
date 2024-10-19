@@ -5,7 +5,6 @@ import userRoutes from "./routes/user.routes.js";
 import authRoutes from "./routes/auth.routes.js";
 dotenv.config();
 
-
 async function run() {
   const clientOptions = {
     serverApi: { version: "1", strict: true, deprecationErrors: true },
@@ -18,8 +17,7 @@ async function run() {
     console.log(
       "Pinged your deployment. You successfully connected to MongoDB!"
     );
-  } catch(error)
-  {
+  } catch (error) {
     res.status(500).json(error.message);
   }
 }
@@ -35,3 +33,13 @@ app.listen(port, () => {
 
 app.use("/api/user", userRoutes);
 app.use("/api/auth", authRoutes);
+
+app.use((err, req, res, next) => {
+  const statusCode = err.statusCode || 500;
+  const message = err.message || 500;
+  return res.status(statusCode).json({
+    success: false,
+    message,
+    statusCode,
+  });
+});
