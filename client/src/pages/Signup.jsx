@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function signup() {
   const [formData, setFormData] = useState({});
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
@@ -26,13 +27,13 @@ export default function signup() {
       });
 
       const data = await res.json();
-      console.log(data)
+      console.log(data);
       setLoading(false);
       if (data.success === false) {
         setError(true);
+        return;
       }
-      
-
+      navigate("/signin");
     } catch (error) {
       setLoading(false);
       setError(true);
@@ -73,7 +74,9 @@ export default function signup() {
       </form>
       <div className="flex gap-2 mt-5">
         <p>Have an account?</p>
-        <span className="text-blue-500">Sign in</span>
+        <Link to="/signin">
+          <span className="text-blue-500">Sign in</span>
+        </Link>
       </div>
       <p className="text-red-700 mt-5">{error && "Something went wrong!"}</p>
     </div>
