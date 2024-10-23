@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import userRoutes from "./routes/user.routes.js";
 import authRoutes from "./routes/auth.routes.js";
 import cookieParser from "cookie-parser";
+import path from "path";
 dotenv.config();
 
 async function run() {
@@ -24,7 +25,19 @@ async function run() {
 }
 run().catch(console.dir);
 
+//Find directory name
+const __dirname = path.resolve();
+
 const app = express();
+
+//create static path
+app.use(express.static(path.join(__dirname, "/client/dist")));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "client", "dist", "dist/index.html"));
+});
+//
+
 app.use(express.json());
 app.use(cookieParser());
 const port = 6000;
