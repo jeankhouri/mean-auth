@@ -1,7 +1,12 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { signInStart, signInSuccess, signInFailure } from "../redux/user/userSlice";
+import {
+  signInStart,
+  signInSuccess,
+  signInFailure,
+} from "../redux/user/userSlice";
 import { useDispatch, useSelector } from "react-redux";
+import OAuth from "../components/OAuth";
 
 export default function signin() {
   const [formData, setFormData] = useState({});
@@ -28,15 +33,12 @@ export default function signin() {
       });
 
       const data = await res.json();
-      console.log(data);
       if (data.success === false) {
-        dispatch(signInFailure(data))
+        dispatch(signInFailure(data));
         return;
       }
       dispatch(signInSuccess(data));
       navigate("/");
-
-
     } catch (error) {
       dispatch(signInFailure(error));
     }
@@ -66,6 +68,7 @@ export default function signin() {
         >
           {loading ? "Loading..." : "Sign In"}
         </button>
+        <OAuth>OAuth</OAuth>
       </form>
       <div className="flex gap-2 mt-5">
         <p>Don't have an account?</p>
@@ -73,7 +76,9 @@ export default function signin() {
           <span className="text-blue-500">Sign up</span>
         </Link>
       </div>
-      <p className="text-red-700 mt-5">{error ? error.message || "Something went wrong!" : ''}</p>
+      <p className="text-red-700 mt-5">
+        {error ? error.message || "Something went wrong!" : ""}
+      </p>
     </div>
   );
 }
