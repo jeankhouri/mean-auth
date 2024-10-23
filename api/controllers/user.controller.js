@@ -36,3 +36,16 @@ export const updateUser = async (req, res, next) => {
     next(error);
   }
 };
+
+export const deleteUser = async (req, res, nect) => {
+  if (req.user.id !== req.params.id) {
+    return next(errorHandler(401, "Invalid User. Access Denies"));
+  }
+
+  try {
+    await User.findByIdAndDelete(req.params.id);
+    res.status(200).json("user has been deleted...");
+  } catch (error) {
+    next(error);
+  }
+};

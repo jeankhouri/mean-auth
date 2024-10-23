@@ -8,7 +8,7 @@ import {
 } from 'firebase/storage';
 import { app } from '../firebase';
 import { useDispatch } from 'react-redux';
-/* import {
+import {
   updateUserStart,
   updateUserSuccess,
   updateUserFailure,
@@ -16,7 +16,7 @@ import { useDispatch } from 'react-redux';
   deleteUserSuccess,
   deleteUserFailure,
   signOut,
-} from '../redux/user/userSlice'; */
+} from '../redux/user/userSlice';
 
 export default function Profile() {
   const dispatch = useDispatch();
@@ -183,7 +183,7 @@ export default function Profile() {
       </div>
       <p className='text-red-700 mt-5'>{error && 'Something went wrong!'}</p>
       <p className='text-green-700 mt-5'>
-        {updateSuccess && 'User is updated successfully!'}
+        {updateSuccess && 'User updated successfully!'}
       </p>
     </div>
   );

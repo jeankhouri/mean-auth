@@ -18,7 +18,7 @@ const userSchema = new mongoose.Schema(
     },
     profilePicture: {
       type: String,
-      default: "../client/src/assets/user.png",
+      default: "https://firebasestorage.googleapis.com/v0/b/mean-auth-c0131.appspot.com/o/user.png?alt=media&token=3b431414-4e7f-4849-95ec-dbb76c3e0ba4",
     },
   },
   { timestamps: true }
